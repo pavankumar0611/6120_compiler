@@ -20,7 +20,6 @@ for func in data["functions"]:
             value = instr["value"]
 
             key = ("const", value)
-            #print("this is key " , key)
 
             if key in expr_table:
                 #if its is already present in the table  reuse existing constant
@@ -36,6 +35,15 @@ for func in data["functions"]:
         elif op == "print":
             continue
 
+        elif op == "id":
+           var = instr["dest"]
+           args = instr["args"][0]
+
+           id_value = temporary_state.get(args , args)
+           temporary_state[var] = id_value
+
+           table.append((sl_no, id_value , op , var))
+           sl_no += 1
         # to maintain binary operation(add, mul,sub , div  etc.)
         elif "args" in instr:
             var = instr["dest"]
@@ -45,16 +53,13 @@ for func in data["functions"]:
 			#  using get for safe purpose .. get ( key , default )
 			# if the key is present return the value from the table else return default
 			# example : int a = 5 , b = 5   then b will point to a since same value
-            arg1 = temporary_state.get(args[0], args[0]) 
-            arg2 = temporary_state.get(args[1], args[1])
-            #print("printig value after get method " ,arg1 , arg2)
+            new_args =  [temporary_state.get(a, a) for a in args]
 
             # for commutative we sort things ex : a * b is same has b * a ...
             if op in ["add", "mul"]:
-                key = (op, tuple(sorted([arg1, arg2])))
+                key = (op, tuple(sorted(new_args)))
             else:
-                key = (op, (arg1, arg2))
-            print("printing key element -> " , key)
+                key = (op, tuple(new_args))
 
             if key in expr_table:
                 # if the expr is present reuse the same expression
@@ -65,7 +70,7 @@ for func in data["functions"]:
                 expr_table[key] = var
                 temporary_state[var] = var
 
-                table.append((sl_no, f"{arg1} {arg2}", op, var))
+                table.append((sl_no, "".join(new_args), op, var))
                 sl_no += 1
 
         else:

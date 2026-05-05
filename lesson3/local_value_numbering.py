@@ -34,6 +34,17 @@ for func in data["functions"]:
                 temporary_state[var] = var
                 new_instrs.append(instr)
 
+
+        elif op == "id":
+           var = instr["dest"]
+           args =  instr["args"][0]
+           id_value = temporary_state.get(args , args)
+           temporary_state[var] = id_value
+
+           instr["args"] = id_value
+           new_instrs.append(instr)
+
+
         elif op == "print":
             instr["args"] = [temporary_state.get(a, a) for a in instr["args"]]
             new_instrs.append(instr)
@@ -45,15 +56,14 @@ for func in data["functions"]:
 
 			# using get function 
 			# if it exists use it else add the new element later
-            arg1 = temporary_state.get(args[0], args[0])
-            arg2 = temporary_state.get(args[1], args[1])
+            new_args = [temporary_state.get(a, a) for a in args]
 
             if op in ["add", "mul"]:
-                key = (op, tuple(sorted([arg1, arg2]))) # if we sort then we are achieving commutative property for add , mul operation
+                key = (op, tuple(sorted(new_args))) # if we sort then we are achieving commutative property for add , mul operation
                 instr["args"] = list(key[1])
             else:
-                key = (op, (arg1, arg2))
-                instr["args"] = [arg1, arg2]
+                key = (op, tuple(new_args))
+                instr["args"] = new_args
 
             if key in expr_table:
                 temporary_state[var] = expr_table[key]
