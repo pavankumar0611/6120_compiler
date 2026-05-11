@@ -90,6 +90,10 @@ for func in data["functions"]:
             folded = False
             result = None
 
+            # all is built int function that check for all args in new one by one
+            # isinstance( x, int( checks whether value is integer
+            # all() function collects these result and returns true if all arguments are int
+            # else false
             if all(isinstance(x, int) for x in new_args):
              # using all to check if both parameters in add/sub are int
                 if op == "add":

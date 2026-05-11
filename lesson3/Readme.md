@@ -1,4 +1,4 @@
-# Compiler optimization: DEAD CODE ELIMINATION (DCE), LOCAL VALUE NUMBERING (LVN), COMMON SUBEXPRESSION ELIMINATION (CSE)
+# Compiler optimization: Dead code elimination (DCE), Local value numbering (LVN), Common subexpression elimination (CSE)
 
 ---
 
