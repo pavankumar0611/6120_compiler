@@ -1,8 +1,8 @@
-# COMPILER OPTIMIZATIONS: DEAD CODE ELIMINATION (DCE), LOCAL VALUE NUMBERING (LVN), COMMON SUBEXPRESSION ELIMINATION (CSE)
+# Compiler optimization: DEAD CODE ELIMINATION (DCE), LOCAL VALUE NUMBERING (LVN), COMMON SUBEXPRESSION ELIMINATION (CSE)
 
 ---
 
-# DEAD CODE ELIMINATION (DCE)
+# Dead code elimination (DCE)
 
 Dead Code Elimination works by reading instructions from bottom to top using backward traversal. It tracks variables that are needed in future instructions. If a variable is not used later in the program, it is considered dead code and can be removed. Otherwise, it must be kept.
 
@@ -62,7 +62,7 @@ t1 = a + b
 
 ---
 
-# COMMON SUBEXPRESSION ELIMINATION (CSE)
+# Common subexpression elimination(CSE)
 
 Commutative property 
 
@@ -101,6 +101,21 @@ images/
 
 ---
 
+# Constant folding
+
+Constant Folding is a compile-time optimization where expressions involving only constant integer values are evaluated during compilation instead of runtime.
+
+For add/sub , mul/div expressions:
+
+Check whether both parameters are integer constants.
+If both arguments are integers, mark the expression for folding.
+Compute the value during compilation.
+Add the computed value into the constant table.
+Before inserting a new constant value, check whether it already exists:
+If present, reuse the existing constant entry.
+Otherwise, create a new row for the constant.
+
 # SUMMARY
 
 DCE removes dead instructions, LVN removes repeated computations, and CSE eliminates duplicate expressions using normalization and reuse of computed results.
+Constant Folding evaluates constant integer expressions at compile time and reuses existing constant values whenever possible.
