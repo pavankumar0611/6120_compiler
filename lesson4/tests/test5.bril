@@ -1,0 +1,14 @@
+@main {
+
+    i: int = const 0;
+
+.loop:
+
+    i: int = add i i;
+
+    cond: bool = const true;
+
+    br cond .loop .end;
+
+.end:
+}

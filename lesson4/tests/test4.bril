@@ -1,0 +1,16 @@
+@main(cond: bool) {
+
+    a: int = const 1;
+
+    br cond .left .right;
+
+.left:
+    b: int = const 2;
+    jmp .join;
+
+.right:
+    c: int = const 3;
+
+.join:
+    d: int = const 4;
+}

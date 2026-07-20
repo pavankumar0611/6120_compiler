@@ -1,0 +1,10 @@
+@main {
+
+    a: int = const 5;
+
+    jmp .next;
+
+.next:
+
+    print a;
+}
